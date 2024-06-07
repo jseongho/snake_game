@@ -3,7 +3,8 @@
 using namespace std;
 
 int main() {
-SnakeGame game(21, 21);
-game.run();
+
+SnakeGame game(1);
+
 return 0;
 }
