@@ -325,13 +325,14 @@ void SnakeGame::gameLoop() {
                 break;
         }
 
-        // 뱀 이동
-        for (int i = snake_length - 1; i > 0; --i) {
+        if(moveStatus == true){ //addtional work
+            for (int i = snake_length - 1; i > 0; --i) {
             snake_x[i] = snake_x[i - 1];
             snake_y[i] = snake_y[i - 1];
+            }
+            snake_x[0] += snake_dir_x;
+            snake_y[0] += snake_dir_y;
         }
-        snake_x[0] += snake_dir_x;
-        snake_y[0] += snake_dir_y;
 
         // 충돌 확인
         checkCollisions();
