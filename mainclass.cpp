@@ -281,6 +281,7 @@ void SnakeGame::gameLoop() {
         usleep(wait);
 
         int ch = getch();
+        if(ch == KEY_UP || ch == KEY_DOWN || ch == KEY_RIGHT || ch == KEY_LEFT){moveStatus = true;}
         switch (ch) {
             case KEY_UP:
                 // 뱀의 방향을 위쪽으로 변경
