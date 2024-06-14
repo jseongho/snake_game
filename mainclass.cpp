@@ -1,3 +1,6 @@
+// 원래 mainclass.cpp 에서 Game 시작할 때 snake가 정지한 상태로만 있게 두 줄만 수정한 코드
+// 수정 코드 line 234 (moveStatus 플래그 변수 추가), line 275, 321 (키보드 입력받으면 플래그 변수 True로, True시 움직임 start하는 if문) 참고
+
 #include <iostream>
 #include "SnakeGame.h"
 #include <ncurses.h>
@@ -40,6 +43,13 @@ void SnakeGame::run(int level) {
     poisonMission = 5;
     gateMission = 2;
     wait = 150000;
+    }
+    if (level == 4) {
+    MapInit(51,21);
+    foodMission = 9; //미션 조건
+    poisonMission = 7;
+    gateMission = 4;
+    wait = 100000;
     }
     speedChange = 20000;
     srand(time(nullptr));   // 랜덤 시드 설정
@@ -228,6 +238,7 @@ void SnakeGame::gameLoop() {
     poisonComplete = ' ';
     gateComplete = ' ';
     MissionComplete = false;
+    bool moveStatus = false; // additional work
     
     while (gameState == PLAYING) {
 
@@ -253,7 +264,7 @@ void SnakeGame::gameLoop() {
         // 뱀 그리기
         mvprintw(snake_y[0], snake_x[0], "H");
         for (int i = 1; i < snake_length; ++i) {
-            mvprintw(snake_y[i], snake_x[i], "O");
+            mvprintw(snake_y[i], snake_x[i], "0");
         }
 
         // 게이트 그리기
@@ -268,6 +279,7 @@ void SnakeGame::gameLoop() {
         usleep(wait);
 
         int ch = getch();
+        if(ch == KEY_UP || ch == KEY_DOWN || ch == KEY_RIGHT || ch == KEY_LEFT){moveStatus = true;} // addtional work
         switch (ch) {
             case KEY_UP:
                 // 뱀의 방향을 위쪽으로 변경
@@ -312,12 +324,15 @@ void SnakeGame::gameLoop() {
         }
 
         // 뱀 이동
-        for (int i = snake_length - 1; i > 0; --i) {
+        // 뱀 이동
+        if(moveStatus == true){ //addtional work
+            for (int i = snake_length - 1; i > 0; --i) {
             snake_x[i] = snake_x[i - 1];
             snake_y[i] = snake_y[i - 1];
+            }
+            snake_x[0] += snake_dir_x;
+            snake_y[0] += snake_dir_y;
         }
-        snake_x[0] += snake_dir_x;
-        snake_y[0] += snake_dir_y;
 
         // 충돌 확인
         checkCollisions();
