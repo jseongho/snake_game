@@ -235,6 +235,7 @@ void SnakeGame::gameLoop() {
     poisonComplete = ' ';
     gateComplete = ' ';
     MissionComplete = false;
+    bool moveStatus = false;
     
     while (gameState == PLAYING) {
 
