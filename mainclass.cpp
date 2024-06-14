@@ -242,9 +242,9 @@ void SnakeGame::gameLoop() {
         
         // 맵의 벽 그리기
         mvprintw(0,0,"M");
-        mvprintw(0,map_height-1,"M");
-        mvprintw(map_width-1,0,"M");
-        mvprintw(map_width-1,map_height-1,"M");
+        mvprintw(0,map_width-1,"M");
+        mvprintw(map_height-1,0,"M");
+        mvprintw(map_height-1,map_width-1,"M");
 
         for (int i = 1; i < map_height-1; ++i) {
             mvprintw(i, 0, "X");
